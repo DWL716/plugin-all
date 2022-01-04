@@ -7,5 +7,5 @@
 ```
 const vitePluginRemoveOtherConsole = require('vite-plugin-remove-other-console');
 
-// TODO: DEMONSTRATE API
+vitePluginRemoveOtherConsole('you name')
 ```

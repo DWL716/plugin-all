@@ -1,11 +1,11 @@
 {
   "name": "vite-plugin-remove-other-console",
   "version": "0.0.1",
-  "description": "> TODO: description",
+  "description": "vite-plugin，删除指定外的console",
   "author": "DWL716 <1239787435@qq.com>",
-  "homepage": "",
+  "homepage": "https://gitee.com/DWL716/plugin-all",
   "license": "ISC",
-  "main": "lib/vite-plugin-remove-other-console.js",
+  "main": "lib/index.js",
   "directories": {
     "lib": "lib",
     "test": "__tests__"
@@ -15,5 +15,9 @@
   ],
   "scripts": {
     "test": "echo \"Error: run tests from root\" && exit 1"
+  },
+  "dependencies": {
+    "@babel/core": "7.12.10",
+    "babel-plugin-remove-other-console": "^0.0.1"
   }
 }
