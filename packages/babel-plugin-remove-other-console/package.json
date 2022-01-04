@@ -1,9 +1,9 @@
 {
   "name": "babel-plugin-remove-other-console",
   "version": "0.0.1",
-  "description": "> TODO: description",
+  "description": "babel-plugin，删除指定外的console",
   "author": "DWL716 <1239787435@qq.com>",
-  "homepage": "",
+  "homepage": "https://gitee.com/DWL716/plugin-all",
   "license": "ISC",
   "main": "./lib/index.js",
   "directories": {
@@ -13,6 +13,9 @@
   "files": [
     "lib"
   ],
+  "publishConfig": {
+    "registry": "https://registry.npmjs.org/"
+  },
   "scripts": {
     "test": "echo \"Error: run tests from root\" && exit 1"
   },
