@@ -5,10 +5,8 @@ module.exports = (name) => {
         name: 'remove-console',
         transform(scr, id) {
             if(/\.(vue|js|ts)$/.test(id)) {
-                console.log(id, '\n\n');
-                // console.log('scr---\n', scr);
+                // console.log(id, '\n\n');
                 return babelConsoleName(scr)
-                // return babelConsole(scr)
             }
         }
     }

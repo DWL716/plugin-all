@@ -1,6 +1,6 @@
 {
   "name": "vite-plugin-remove-other-console",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "description": "vite-plugin，删除指定外的console",
   "author": "DWL716 <1239787435@qq.com>",
   "homepage": "https://gitee.com/DWL716/plugin-all",

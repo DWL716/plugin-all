@@ -5,7 +5,10 @@
 ## Usage
 
 ```
-const vitePluginRemoveOtherConsole = require('vite-plugin-remove-other-console');
+import myPlugin from 'vite-plugin-remove-other-console'
 
-vitePluginRemoveOtherConsole('you name')
+export default defineConfig({
+  plugins: [myPlugin('you name')]
+})
+
 ```
