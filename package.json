@@ -1,0 +1,19 @@
+{
+  "name": "root",
+  "private": true,
+  "version": "0.0.1",
+  "description": "babel, vite 插件",
+  "license": "MIT",
+  "author": "1239787435@qq.com",
+  "devDependencies": {
+    "lerna": "^4.0.0"
+  },
+  "scripts": {
+    "bootstrap": "lerna bootstrap",
+    "build": "lerna run build"
+  },
+  "workspaces": [
+    "packages/*"
+  ],
+  "dependencies": {}
+}
