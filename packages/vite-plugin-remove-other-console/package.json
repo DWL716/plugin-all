@@ -1,0 +1,19 @@
+{
+  "name": "vite-plugin-remove-other-console",
+  "version": "0.0.1",
+  "description": "> TODO: description",
+  "author": "DWL716 <1239787435@qq.com>",
+  "homepage": "",
+  "license": "ISC",
+  "main": "lib/vite-plugin-remove-other-console.js",
+  "directories": {
+    "lib": "lib",
+    "test": "__tests__"
+  },
+  "files": [
+    "lib"
+  ],
+  "scripts": {
+    "test": "echo \"Error: run tests from root\" && exit 1"
+  }
+}
