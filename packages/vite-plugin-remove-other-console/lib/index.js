@@ -1,5 +1,5 @@
 const baseBabel = require('./babel')
-export default (name) => {
+module.exports = (name) => {
     const babelConsoleName = baseBabel(name)
     return {
         name: 'remove-console',
