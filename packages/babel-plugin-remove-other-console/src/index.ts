@@ -1,13 +1,13 @@
 import * as t from '@babel/types';
 import { Visitor, NodePath } from '@babel/traverse';
 
-type Options = { exclude?: { name: string }[] };
+type Options = { exclude?: string };
 
 export interface PluginOptions {
   opts: Options;
 }
 
-export default function () {
+export default function (opts: { exclude?: string }) {
   /**
    * 判断调用的是否是 console
    * @param name 传入 console

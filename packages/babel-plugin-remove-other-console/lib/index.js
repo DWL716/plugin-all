@@ -1,6 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-function default_1() {
+function default_1(opts) {
     function isIdWithNameGlobal(name, id) {
         return id.isIdentifier({ name: name }) && !id.scope.getBinding(name) && id.scope.hasGlobal(name);
     }

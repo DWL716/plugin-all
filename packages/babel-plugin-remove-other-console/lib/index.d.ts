@@ -1,13 +1,13 @@
 import { Visitor } from '@babel/traverse';
 declare type Options = {
-    exclude?: {
-        name: string;
-    }[];
+    exclude?: string;
 };
 export interface PluginOptions {
     opts: Options;
 }
-export default function (): {
+export default function (opts: {
+    exclude?: string;
+}): {
     name: string;
     visitor: Visitor<PluginOptions>;
 };
