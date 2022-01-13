@@ -1,11 +1,12 @@
 {
   "name": "babel-plugin-remove-other-console",
   "version": "0.0.1",
-  "description": "babel-plugin，删除指定外的console",
+  "description": "删除指定外的console.log",
   "author": "DWL716 <1239787435@qq.com>",
   "homepage": "https://gitee.com/DWL716/plugin-all",
   "license": "ISC",
-  "main": "./lib/index.js",
+  "main": "lib/index.js",
+  "types": "lib/index.d.ts",
   "directories": {
     "lib": "lib",
     "test": "__tests__"
@@ -17,9 +18,16 @@
     "registry": "https://registry.npmjs.org/"
   },
   "scripts": {
-    "test": "echo \"Error: run tests from root\" && exit 1"
+    "build": "rimraf lib && tsc -p tsconfig.json"
   },
   "devDependencies": {
-    "@babel/core": "7.12.10"
+    "@babel/core": "7.12.10",
+    "@babel/traverse": "^7.12.12",
+    "@babel/types": "^7.16.8",
+    "@types/babel-traverse": "^6.25.7",
+    "@types/babel-types": "^7.0.11"
+  },
+  "dependencies": {
+    "typescript": "^4.5.4"
   }
 }

@@ -1,5 +1,5 @@
-const { transformSync } = require('@babel/core')
-const myPlugins = require('../lib/index')
+const { transformSync } = require('@babel/core');
+const myPlugins = require('../lib/index').default;
 const code = `
 console.log('<D0></D0>WL', 'tedd00st')
 console.log('ccWL', 'tedd00st')
@@ -12,14 +12,9 @@ function a() {
   console.log('DWL', path)
 }
 console.log('DWL', 'tedd00st')
-console.warn(abs)
-let path = 'test';
-console.log('abs', path)
-//if('aa') {}
-bcc(22)
-`
+`;
 const babelConfig = {
-    plugins: [myPlugins('DWL')]
-}
-const output = transformSync(code, babelConfig)
-console.log(output.code);
+  plugins: [[myPlugins, { exclude: 'DWL' }]],
+};
+const output = transformSync(code, babelConfig);
+console.log(output.code, output.map);

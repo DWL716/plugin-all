@@ -1,28 +1,41 @@
-module.exports = (name) => {
-  return function ({ types: t }) {
-    return {
-      visitor: {
-        CallExpression(callee, arguments) {
-          // 方法二
-          // 获取 call 子节点 和第一个参数 
-          let nodeCallee = callee.node
-          // console.log(callee, '\n\n\n', arguments);
-          let argOne = callee.node.arguments[0]
-          // 判断是否是 CallExpression
-          let isCallExpression = t.isCallExpression(nodeCallee)
-          if(isCallExpression) {
-            let _console = nodeCallee.callee?.object?.name === 'console'
-            let _log = nodeCallee.callee?.property?.name === 'log'
-            let isMyLog = argOne?.value === name
-            // console.log(_console, _log, isMyLog, 'test---');
-            if(_console && _log ) {
-              if(!isMyLog) {
-                callee.remove();
-              }
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+function default_1() {
+    function isIdWithNameGlobal(name, id) {
+        return id.isIdentifier({ name: name }) && !id.scope.getBinding(name) && id.scope.hasGlobal(name);
+    }
+    function isConsoleLog(memberExpr) {
+        var object = memberExpr.get('object');
+        var property = memberExpr.get('property');
+        return isIdWithNameGlobal('console', object) && property.isIdentifier({ name: 'log' });
+    }
+    function isExcludeName(memberExpr, state) {
+        if (!memberExpr)
+            return false;
+        if (!memberExpr.isStringLiteral())
+            return false;
+        if (!state.opts.exclude)
+            return false;
+        var excludeName = state.opts.exclude;
+        if (memberExpr.isStringLiteral({ value: excludeName }))
+            return true;
+        return false;
+    }
+    var removeOtherConsole = {
+        CallExpression: function (path, state) {
+            var callee = path.get('callee');
+            if (!callee.isMemberExpression())
+                return;
+            if (isConsoleLog(callee)) {
+                if (!isExcludeName(path.get('arguments')[0], state)) {
+                    path.remove();
+                }
             }
-          }
-        }
-      },
+        },
     };
-  };
-};
+    return {
+        name: 'remove-other-console',
+        visitor: removeOtherConsole,
+    };
+}
+exports.default = default_1;
