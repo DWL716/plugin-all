@@ -1,6 +1,6 @@
 {
   "name": "babel-plugin-remove-other-console",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "删除指定外的console.log",
   "author": "DWL716 <1239787435@qq.com>",
   "homepage": "https://gitee.com/DWL716/plugin-all",
