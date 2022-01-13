@@ -14,7 +14,7 @@
     "lib"
   ],
   "scripts": {
-    "test": "echo \"Error: run tests from root\" && exit 1"
+    "build": "rimraf lib && tsc -p tsconfig.json"
   },
   "dependencies": {
     "@babel/core": "7.12.10",
