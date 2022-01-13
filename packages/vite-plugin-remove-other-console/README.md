@@ -2,9 +2,7 @@
 
 删除指定外的 console.log
 
-> TODO: description
-
-## Usage
+## 使用
 
 ```
 import removeOtherConsole from 'vite-plugin-remove-other-console'

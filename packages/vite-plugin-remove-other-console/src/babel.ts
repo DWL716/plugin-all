@@ -3,7 +3,7 @@ import removeOtherConsole from 'babel-plugin-remove-other-console';
 
 export default (name: string) => {
   const babelConfig = {
-    plugins: [removeOtherConsole, { exclude: name }],
+    plugins: [[removeOtherConsole, { exclude: name }]],
   };
   return (code: string) => {
     const output = transformSync(code, babelConfig);

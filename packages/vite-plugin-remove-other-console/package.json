@@ -18,7 +18,7 @@
   },
   "dependencies": {
     "@babel/core": "7.12.10",
-    "babel-plugin-remove-other-console": "^0.0.1",
+    "babel-plugin-remove-other-console": "^0.0.2",
     "typescript": "^4.5.4"
   },
   "devDependencies": {}
