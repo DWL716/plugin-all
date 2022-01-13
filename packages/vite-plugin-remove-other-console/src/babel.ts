@@ -1,4 +1,4 @@
-const { transformSync } = require("@babel/core");
+import { transformSync } from "@babel/core";
 const myBabelPlugin = require("babel-plugin-remove-other-console");
 
 module.exports = (name) => {

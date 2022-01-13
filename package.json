@@ -6,7 +6,9 @@
   "license": "MIT",
   "author": "1239787435@qq.com",
   "devDependencies": {
-    "lerna": "^4.0.0"
+    "lerna": "^4.0.0",
+    "rimraf": "^3.0.2",
+    "jest": "^27.4.7"
   },
   "scripts": {
     "bootstrap": "lerna bootstrap",

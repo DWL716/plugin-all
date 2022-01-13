@@ -1,5 +1,7 @@
 # `vite-plugin-remove-other-console`
 
+删除指定的 console.log
+
 > TODO: description
 
 ## Usage

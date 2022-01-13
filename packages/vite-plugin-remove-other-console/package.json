@@ -1,7 +1,7 @@
 {
   "name": "vite-plugin-remove-other-console",
   "version": "0.0.3",
-  "description": "vite-plugin，删除指定外的console",
+  "description": "删除指定外的console.log",
   "author": "DWL716 <1239787435@qq.com>",
   "homepage": "https://gitee.com/DWL716/plugin-all",
   "license": "ISC",
@@ -18,6 +18,10 @@
   },
   "dependencies": {
     "@babel/core": "7.12.10",
-    "babel-plugin-remove-other-console": "^0.0.1"
+    "babel-plugin-remove-other-console": "^0.0.1",
+    "typescript": "^4.5.4"
+  },
+  "devDependencies": {
+    "jest": "^27.4.7"
   }
 }
