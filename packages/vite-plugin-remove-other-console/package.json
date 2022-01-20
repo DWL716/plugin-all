@@ -14,7 +14,8 @@
     "lib"
   ],
   "scripts": {
-    "build": "rimraf lib && tsc -p tsconfig.json"
+    "build": "rimraf lib && tsc -p tsconfig.json",
+    "dev": "tsc -p tsconfig.json --watch --sourceMap"
   },
   "dependencies": {
     "@babel/core": "7.12.10",

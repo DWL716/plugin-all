@@ -1,7 +1,7 @@
 {
-  "name": "babel-plugin-remove-other-console",
-  "version": "0.0.2",
-  "description": "删除指定外的console.log",
+  "name": "babel-plugin-remove-designated-if",
+  "version": "0.0.1",
+  "description": "删除指定的 if 语句块",
   "author": "DWL716 <1239787435@qq.com>",
   "homepage": "https://gitee.com/DWL716/plugin-all",
   "license": "ISC",
@@ -16,6 +16,10 @@
   ],
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git@gitee.com:DWL716/plugin-all.git"
   },
   "scripts": {
     "build": "rimraf lib && tsc -p tsconfig.json",
