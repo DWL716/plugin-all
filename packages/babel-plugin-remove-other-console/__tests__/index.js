@@ -12,6 +12,7 @@ function a() {
   console.log('DWL', path)
 }
 console.log('DWL', 'tedd00st')
+let aa = console.log('DWL')
 `;
 const babelConfig = {
   plugins: [[myPlugins, { exclude: 'DWL' }]],

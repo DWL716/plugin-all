@@ -68,6 +68,17 @@ export default function (opts: { exclude?: string }) {
         }
       }
     },
+    MemberExpression(path, state) {
+      // 将 console.log （MemberExpression类型）替换成声明函数（functionDeclaration）
+      if (isConsoleLog(path) && path.parentKey === 'init') {
+        // 生成一个 function () {} 匿名函数
+        // const myFun = t.functionDeclaration(t.identifier('console'), [], t.blockStatement([]));
+        const myFun = t.functionExpression(null, [], t.blockStatement([]));
+        // 这里要定位到父节点 如果不定位到父节点直接替换 外面会包裹一个自执行函数
+        // console.log('path----\n', path.parentKey);
+        path.replaceWith(myFun);
+      }
+    },
   };
 
   return {
