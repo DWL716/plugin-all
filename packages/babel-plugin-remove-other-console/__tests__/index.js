@@ -15,7 +15,8 @@ console.log('DWL', 'tedd00st')
 let aa = console.log('DWL')
 `;
 const babelConfig = {
+  sourceMaps: true,
   plugins: [[myPlugins, { exclude: 'DWL' }]],
 };
 const output = transformSync(code, babelConfig);
-console.log(output.code, output.map);
+console.log('test---\n', output.code,'map\n', output.map);

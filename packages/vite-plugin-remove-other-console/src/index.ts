@@ -1,11 +1,16 @@
 import baseBabel from './babel';
+const merge = require('merge-source-map');
 export default (name: string) => {
-  const babelConsoleName = baseBabel(name);
   return {
     name: 'remove-console',
-    transform(scr: string, id: string): string | void | null {
+    transform(scr: string, id: string, inMap: any): any {
       if (/\.(vue|js|ts)$/.test(id)) {
-        return babelConsoleName(scr);
+        const babelConsoleName = baseBabel(name, id);
+        const dataReturn = babelConsoleName(scr);
+        return {
+          ...dataReturn,
+          map: merge(inMap, dataReturn),
+        };
       }
     },
   };
