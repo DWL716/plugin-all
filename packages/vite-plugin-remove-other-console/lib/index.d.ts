@@ -1,5 +1,5 @@
 declare const _default: (name: string) => {
     name: string;
-    transform(scr: string, id: string, inMap: any): any;
+    transform(scr: string, id: string): any;
 };
 export default _default;

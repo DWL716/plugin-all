@@ -1,4 +1,4 @@
-declare const _default: (name: string, id: string) => (code: string) => {
+declare const _default: (name: string, id?: string | undefined) => (code: string) => {
     code: string | null | undefined;
     map: {
         version: number;

@@ -1,7 +1,7 @@
 import { transformSync } from '@babel/core';
 import removeOtherConsole from 'babel-plugin-remove-other-console';
 
-export default (name: string, id: string) => {
+export default (name: string, id?: string) => {
   const babelConfig = {
     sourceMaps: true,
     plugins: [[removeOtherConsole, { exclude: name }]],
