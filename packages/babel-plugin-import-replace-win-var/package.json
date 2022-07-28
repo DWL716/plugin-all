@@ -1,13 +1,13 @@
 {
   "name": "babel-plugin-import-replace-win-var",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "指定import替换成全局window.xxx",
   "keywords": [
     "import",
     "var"
   ],
   "author": "dengwenlong <dengwenlong@relaper.com>",
-  "homepage": "",
+  "homepage": "https://gitee.com/DWL716/plugin-all",
   "license": "ISC",
   "main": "lib/index.js",
   "directories": {
@@ -22,6 +22,8 @@
     "url": "git@gitee.com:DWL716/plugin-all.git"
   },
   "scripts": {
+    "build": "rimraf lib && tsc -p tsconfig.json",
+    "dev": "tsc -p tsconfig.json --watch --sourceMap",
     "test": "node ./__tests__/index"
   },
   "devDependencies": {

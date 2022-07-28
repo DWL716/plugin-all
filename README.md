@@ -1,5 +1,5 @@
 ## babel 与 vite 插件集合
-
+安装依赖 yarn
 ### babel-plugin-remove-other-console
 
 ```

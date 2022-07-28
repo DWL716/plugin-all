@@ -1,73 +1,73 @@
-module.exports = function importReplaceWinVal({ types: t }) {
-  return {
-    name: 'import-replace-win-var',
-    visitor: {
-      ImportDeclaration(
-        path,
-        _ref = {
-          opts: {
-            libraries: {},
-          },
-        },
-      ) {
-        const specifiers = path.node.specifiers;
-        const source = path.node.source;
-        const library = _ref.opts.libraries[source.value];
-
-        if (library) {
-          const declarations = [];
-          const importSpecifiers = [];
-          specifiers.forEach((specifier) => {
-            // import THREE from 'three'
-            if (t.isImportDefaultSpecifier(specifier)) {
-              declarations.push(
-                t.VariableDeclaration('var', [
-                  t.VariableDeclarator(
-                    t.Identifier(specifier.local.name),
-                    t.MemberExpression(t.Identifier('window'), t.Identifier(library)),
-                  ),
-                ]),
-              );
-            } else if (t.isImportSpecifier(specifier)) {
-              // import { React } from 'three'
-              // or
-              // import { React as React_DOM } from 'three'
-              importSpecifiers.push(specifier);
-            } else if (t.isImportNamespaceSpecifier(specifier)) {
-              // import * as THREE from 'three'
-              declarations.push(
-                t.VariableDeclaration('var', [
-                  t.VariableDeclarator(
-                    t.Identifier(specifier.local.name),
-                    t.MemberExpression(t.Identifier('window'), t.Identifier(library)),
-                  ),
-                ]),
-              );
-            }
-          });
-
-          if (importSpecifiers.length) {
-            // 转换这两种 import { React } from 'three'，import { React as React_DOM } from 'three'
-            const declaration = t.VariableDeclaration('var', [
-              t.VariableDeclarator(
-                t.ObjectPattern(
-                  importSpecifiers.map((specifier) =>
-                    t.ObjectProperty(
-                      t.Identifier(specifier.imported.name),
-                      t.Identifier(specifier.imported.name),
-                    ),
-                  ),
-                ),
-                t.MemberExpression(t.Identifier('window'), t.Identifier(library)),
-              ),
-            ]);
-
-            declarations.push(declaration);
-          }
-
-          path.replaceWithMultiple(declarations);
-        }
-      },
-    },
-  };
+"use strict";
+var __createBinding = (this && this.__createBinding) || (Object.create ? (function(o, m, k, k2) {
+    if (k2 === undefined) k2 = k;
+    Object.defineProperty(o, k2, { enumerable: true, get: function() { return m[k]; } });
+}) : (function(o, m, k, k2) {
+    if (k2 === undefined) k2 = k;
+    o[k2] = m[k];
+}));
+var __setModuleDefault = (this && this.__setModuleDefault) || (Object.create ? (function(o, v) {
+    Object.defineProperty(o, "default", { enumerable: true, value: v });
+}) : function(o, v) {
+    o["default"] = v;
+});
+var __importStar = (this && this.__importStar) || function (mod) {
+    if (mod && mod.__esModule) return mod;
+    var result = {};
+    if (mod != null) for (var k in mod) if (k !== "default" && Object.prototype.hasOwnProperty.call(mod, k)) __createBinding(result, mod, k);
+    __setModuleDefault(result, mod);
+    return result;
 };
+Object.defineProperty(exports, "__esModule", { value: true });
+var t = __importStar(require("@babel/types"));
+function babelPlugin(opts) {
+    var importReplaceWinVal = {
+        ImportDeclaration: function (path, state) {
+            if (!state.opts.libraries)
+                return;
+            var specifiers = path.get('specifiers');
+            var source = path.get('source').node.value;
+            var libraryName = state.opts.libraries[source];
+            var importSpecifiers = [];
+            if (libraryName) {
+                specifiers.forEach(function (specifier) {
+                    if (t.isImportDefaultSpecifier(specifier)) {
+                        path.replaceWithMultiple([
+                            t.variableDeclaration('var', [
+                                t.variableDeclarator(t.identifier(specifier.get('local').toString()), t.memberExpression(t.identifier('window'), t.identifier(libraryName))),
+                            ]),
+                        ]);
+                    }
+                    else if (t.isImportSpecifier(specifier)) {
+                        importSpecifiers.push(specifier);
+                    }
+                    else if (t.isImportNamespaceSpecifier(specifier)) {
+                        path.replaceWithMultiple([
+                            t.variableDeclaration('var', [
+                                t.variableDeclarator(t.identifier(specifier.get('local').toString()), t.memberExpression(t.identifier('window'), t.identifier(libraryName))),
+                            ]),
+                        ]);
+                    }
+                });
+                if (importSpecifiers.length) {
+                    var importAsObj = importSpecifiers.map(function (specifier) {
+                        if (specifier.get('imported').toString() === specifier.get('local').toString()) {
+                            return t.objectProperty(t.identifier(specifier.get('imported').toString()), t.identifier(specifier.get('imported').toString()), false, true);
+                        }
+                        return t.objectProperty(t.identifier(specifier.get('imported').toString()), t.identifier(specifier.get('local').toString()), false, false);
+                    });
+                    var crateDeclaration = t.variableDeclaration('var', [
+                        t.variableDeclarator(t.objectPattern(importAsObj), t.memberExpression(t.identifier('window'), t.identifier(libraryName))),
+                    ]);
+                    path.replaceWithMultiple([crateDeclaration]);
+                }
+            }
+        },
+    };
+    return {
+        name: 'import-replace-win-var',
+        visitor: importReplaceWinVal,
+    };
+}
+exports.default = babelPlugin;
+//# sourceMappingURL=index.js.map

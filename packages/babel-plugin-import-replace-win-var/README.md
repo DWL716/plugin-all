@@ -7,5 +7,10 @@
 ```
 const babelPluginImportReplaceWinVar = require('babel-plugin-import-replace-win-var');
 
-// TODO: DEMONSTRATE API
+> ops  传进去的参数 {libraries:{库名: 全局名}}
+-------
+
+{
+  plugins: [babelPluginImportReplaceWinVar, { libraries: {three: "THREE"} }]
+}
 ```
