@@ -1,6 +1,6 @@
 import { Visitor } from '@babel/traverse';
 declare type Options = {
-    libraries?: any;
+    libs?: any;
 };
 export interface PluginOptions {
     opts: Options;

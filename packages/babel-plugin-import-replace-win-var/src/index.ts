@@ -1,7 +1,7 @@
 import * as t from '@babel/types';
 import { Visitor, NodePath } from '@babel/traverse';
 
-type Options = { libraries?: any };
+type Options = { libs?: any };
 
 export interface PluginOptions {
   opts: Options;
@@ -10,12 +10,12 @@ export interface PluginOptions {
 export default function babelPlugin(opts: Options) {
   const importReplaceWinVal: Visitor<PluginOptions> = {
     ImportDeclaration(path, state) {
-      // console.log('DWL', 'opts', opts.libraries);
-      if (!state.opts.libraries) return;
+      // console.log('DWL', 'opts', opts.libs);
+      if (!state.opts.libs) return;
       // console.log('DWL', 'path-----', path);
       const specifiers = path.get('specifiers');
       const source = path.get('source').node.value;
-      const libraryName = state.opts.libraries[source];
+      const libraryName = state.opts.libs[source];
       // 收集 对象解构声明的每一个 Specifier
       let importSpecifiers: NodePath<t.ImportSpecifier>[] = [];
 
@@ -23,30 +23,14 @@ export default function babelPlugin(opts: Options) {
         specifiers.forEach((specifier) => {
           // import THREE from 'three'
           if (t.isImportDefaultSpecifier(specifier)) {
-            // console.log('DWL', 'specifier', specifier.get('local').toString());
-            path.replaceWithMultiple([
-              t.variableDeclaration('var', [
-                t.variableDeclarator(
-                  t.identifier(specifier.get('local').toString()),
-                  t.memberExpression(t.identifier('window'), t.identifier(libraryName)),
-                ),
-              ]),
-            ]);
+            replaceWithMultiple(path, specifier, libraryName);
           } else if (t.isImportSpecifier(specifier)) {
             /**
              * import { React } from 'three' 和 import { React as React_DOM } from 'three'
              */
             importSpecifiers.push(specifier as NodePath<t.ImportSpecifier>);
           } else if (t.isImportNamespaceSpecifier(specifier)) {
-            // import * as THREE from 'three'
-            path.replaceWithMultiple([
-              t.variableDeclaration('var', [
-                t.variableDeclarator(
-                  t.identifier(specifier.get('local').toString()),
-                  t.memberExpression(t.identifier('window'), t.identifier(libraryName)),
-                ),
-              ]),
-            ]);
+            replaceWithMultiple(path, specifier, libraryName);
           }
         });
         // 单独对结构的 import 进行组装
@@ -88,4 +72,20 @@ export default function babelPlugin(opts: Options) {
     name: 'import-replace-win-var',
     visitor: importReplaceWinVal,
   };
+}
+
+type _path = NodePath<t.ImportDeclaration>;
+type _specifier = NodePath<
+  t.ImportSpecifier | t.ImportDefaultSpecifier | t.ImportNamespaceSpecifier
+>;
+
+function replaceWithMultiple(path: _path, specifier: _specifier, libraryName: string) {
+  path.replaceWithMultiple([
+    t.variableDeclaration('var', [
+      t.variableDeclarator(
+        t.identifier(specifier.get('local').toString()),
+        t.memberExpression(t.identifier('window'), t.identifier(libraryName)),
+      ),
+    ]),
+  ]);
 }

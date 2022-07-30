@@ -1,6 +1,6 @@
 {
   "name": "babel-plugin-import-replace-win-var",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "description": "指定import替换成全局window.xxx",
   "keywords": [
     "import",

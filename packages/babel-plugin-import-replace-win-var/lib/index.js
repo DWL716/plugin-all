@@ -23,30 +23,22 @@ var t = __importStar(require("@babel/types"));
 function babelPlugin(opts) {
     var importReplaceWinVal = {
         ImportDeclaration: function (path, state) {
-            if (!state.opts.libraries)
+            if (!state.opts.libs)
                 return;
             var specifiers = path.get('specifiers');
             var source = path.get('source').node.value;
-            var libraryName = state.opts.libraries[source];
+            var libraryName = state.opts.libs[source];
             var importSpecifiers = [];
             if (libraryName) {
                 specifiers.forEach(function (specifier) {
                     if (t.isImportDefaultSpecifier(specifier)) {
-                        path.replaceWithMultiple([
-                            t.variableDeclaration('var', [
-                                t.variableDeclarator(t.identifier(specifier.get('local').toString()), t.memberExpression(t.identifier('window'), t.identifier(libraryName))),
-                            ]),
-                        ]);
+                        replaceWithMultiple(path, specifier, libraryName);
                     }
                     else if (t.isImportSpecifier(specifier)) {
                         importSpecifiers.push(specifier);
                     }
                     else if (t.isImportNamespaceSpecifier(specifier)) {
-                        path.replaceWithMultiple([
-                            t.variableDeclaration('var', [
-                                t.variableDeclarator(t.identifier(specifier.get('local').toString()), t.memberExpression(t.identifier('window'), t.identifier(libraryName))),
-                            ]),
-                        ]);
+                        replaceWithMultiple(path, specifier, libraryName);
                     }
                 });
                 if (importSpecifiers.length) {
@@ -70,4 +62,10 @@ function babelPlugin(opts) {
     };
 }
 exports.default = babelPlugin;
-//# sourceMappingURL=index.js.map
+function replaceWithMultiple(path, specifier, libraryName) {
+    path.replaceWithMultiple([
+        t.variableDeclaration('var', [
+            t.variableDeclarator(t.identifier(specifier.get('local').toString()), t.memberExpression(t.identifier('window'), t.identifier(libraryName))),
+        ]),
+    ]);
+}
